@@ -34,6 +34,7 @@ public class Display {
 
         frame.setResizable(false); //make window not resizable
         frame.setLocationRelativeTo(null); //center window on screen
+        frame.setUndecorated(true);
         frame.setVisible(true); //default is false(?)
 
         //CANVAS

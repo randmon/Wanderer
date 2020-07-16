@@ -68,7 +68,7 @@ public class Player extends Creature {
                 (int) (y + bounds.y - handler.getGameCamera().getyOffset()),
                 bounds.width, bounds.height);
 
-         */
+        */
 
     }
 
