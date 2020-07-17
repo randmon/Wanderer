@@ -7,7 +7,7 @@ public class Assets {
     private static final int WIDTH = 128, HEIGHT = 128; //number of pixels in spreadsheet!
 
     //buffered image objects
-    public static BufferedImage player, dirt, grass, tree,
+    public static BufferedImage player, dirt, grass, tree, wood,
             brickLeft, brickRight, brickMid, brickSingle,
             brickLeftShadow, brickRightShadow, brickMidShadow, brickSingleShadow;
 
@@ -42,6 +42,8 @@ public class Assets {
         grass = sheet.crop(WIDTH*2, 0, WIDTH, HEIGHT);
 
         tree = sheet.crop(0, HEIGHT, WIDTH*2, HEIGHT*2);
+
+        wood = sheet.crop(WIDTH*3, HEIGHT*2, WIDTH, HEIGHT);
 
         brickLeft = sheet.crop(WIDTH*3, 0, WIDTH, HEIGHT);
         brickMid = sheet.crop(WIDTH*4, 0, WIDTH, HEIGHT);
