@@ -12,9 +12,9 @@ import java.awt.*;
 public class Room {
 
     private Handler handler;
-    private int width, height; //number of tiles
-    private int spawnX, spawnY;
-    private int[][] tiles;
+    private int width, height; // number of tiles
+    private int spawnX, spawnY; // where player first appears
+    private int[][] tiles; // list of all tiles loaded from room file
 
     //ENTITIES
     private EntityManager entityManager;
@@ -40,19 +40,60 @@ public class Room {
     }
 
     public void render(Graphics g) {
+        //Background void
         g.setColor(Color.black);
         g.fillRect(0,0,handler.getWidth(), handler.getHeight());
 
         //Tiles user can currently see
         int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILE_WIDTH);
         int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) /Tile.TILE_WIDTH + 1);
-        int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILE_HEIGHT);;
+        int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILE_HEIGHT);
         int yEnd = (int) Math.min(height, (handler.getGameCamera().getyOffset() + handler.getHeight()) /Tile.TILE_HEIGHT + 1);
 
+        //Render tiles
         for(int y = yStart; y< yEnd; y++){
             for(int x = xStart; x< xEnd; x++){
-                getTile(x, y).render(g, (int) (x*Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
-                        (int) (y*Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()));
+                Tile tileToRender = getTile(x, y); //Current tile
+
+                // Define auto-texture
+                if (tileToRender.autoTexture()){
+
+                    //Check tile to the left
+                    if (x-1 >= 0 && getTile(x-1, y).getId() == tileToRender.getId()) {
+                       //The tile to the left is the same
+                       //Check tile to the right
+                       if (x+1 <= handler.getWidth() && getTile(x+1, y).getId() == tileToRender.getId()) {
+                            //All 3 tiles are the same
+                           tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
+                                   (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()),
+                                   1);
+                       } else {
+                           //Tile to the right is not the same
+                           tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
+                                   (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()),
+                                   2);
+                       }
+                    } else {
+                        //Tile to the left is not the same
+                        //Check tile to the right
+                        if (x+1 <= handler.getWidth() && getTile(x+1, y).getId() == tileToRender.getId()) {
+                            //Tile to the right is the same
+                            tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
+                                    (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()),
+                                    0);
+                        } else {
+                            //All 3 tiles are different
+                            tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
+                                    (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()),
+                                    3);
+                        }
+                    }
+
+                //No auto texture
+                } else {
+                    tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
+                            (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()));
+                }
             }
         }
         //Entities
@@ -63,13 +104,13 @@ public class Room {
     public Tile getTile(int x, int y) {
 
         //If player is outside of world, prevent error by saying they are on grass
-        if (x < 0 || y < 0 || x > width || y >= height) {
+        if (x < 0 || y < 0 || x >= width || y >= height) {
             return Tile.grassTile;
         }
 
         Tile t = Tile.tiles[tiles[x][y]];
         if(t == null) {
-            return Tile.dirtTile;
+            return Tile.grassTile;
         }
         return t;
 

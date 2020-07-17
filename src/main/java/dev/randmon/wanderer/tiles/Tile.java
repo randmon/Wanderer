@@ -6,16 +6,10 @@ import java.awt.image.BufferedImage;
 public class Tile {
 
     //STATIC INSTANCES OF TILES
-
     public static Tile[] tiles = new Tile[256]; //Will hold one instance of every tile
-
     public static Tile grassTile = new GrassTile(0);
     public static Tile dirtTile = new DirtTile(1);
-
-    public static Tile brickMidTile = new BrickMidTile(2);
-    public static Tile brickLeftTile = new BrickLeftTile(3);
-    public static Tile brickRightTile = new BrickRightTile(4);
-    public static Tile brickSingleTile = new BrickSingleTile(5);
+    public static Tile brickTile = new BrickTile(2);
 
 
     //CLASS
@@ -23,6 +17,7 @@ public class Tile {
     public static final int TILE_WIDTH = 64, TILE_HEIGHT = 64;
 
     protected BufferedImage texture;
+    protected BufferedImage[] autoTexture = new BufferedImage[4];
     protected final int id;
 
     /** constructor
@@ -44,13 +39,28 @@ public class Tile {
         g.drawImage(texture, x, y, TILE_WIDTH, TILE_HEIGHT, null);
     }
 
+    public void render(Graphics g, int x, int y, int type) {
+        setTexture(autoTexture[type]);
+        g.drawImage(texture, x, y, TILE_WIDTH, TILE_HEIGHT, null);
+    }
+
     /** isSolid method decides if you can walk on a tile or not
      * default false (you can walk on it) */
     public boolean isSolid() {
         return false;
     }
 
+    /** autoTexture method decides if the texture changes according to adjacent tiles
+     * default false (always same texture) */
+    public boolean autoTexture() {
+        return false;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setTexture(BufferedImage texture) {
+        this.texture = texture;
     }
 }
