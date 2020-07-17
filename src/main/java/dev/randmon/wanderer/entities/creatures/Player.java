@@ -2,6 +2,7 @@ package dev.randmon.wanderer.entities.creatures;
 
 import dev.randmon.wanderer.Game;
 import dev.randmon.wanderer.Handler;
+import dev.randmon.wanderer.Launcher;
 import dev.randmon.wanderer.gfx.Animation;
 import dev.randmon.wanderer.gfx.Assets;
 
@@ -18,10 +19,10 @@ public class Player extends Creature {
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 
-        bounds.x = 33;
-        bounds.y = 64;
-        bounds.width = 63;
-        bounds.height = 63;
+        bounds.x = 30;
+        bounds.y = height/4*3;
+        bounds.width = width-60;
+        bounds.height = height/4;
 
         //Animations
         animDown = new Animation(200, Assets.player_down);
@@ -63,13 +64,12 @@ public class Player extends Creature {
                 width, height, null);
 
         //temporary display bounding box player
-        /*g.setColor(Color.red);
-        g.drawRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
-                (int) (y + bounds.y - handler.getGameCamera().getyOffset()),
-                bounds.width, bounds.height);
-
-        */
-
+        if (Launcher.debug) {
+            g.setColor(Color.red);
+            g.drawRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
+                    (int) (y + bounds.y - handler.getGameCamera().getyOffset()),
+                    bounds.width, bounds.height);
+        }
     }
 
     private BufferedImage getCurrentAnimationFrame() {

@@ -1,7 +1,7 @@
 package dev.randmon.wanderer.states;
 
 import dev.randmon.wanderer.Handler;
-import dev.randmon.wanderer.worlds.Room;
+import dev.randmon.wanderer.rooms.Room;
 
 import java.awt.*;
 
@@ -13,7 +13,7 @@ public class GameState extends State{
     public GameState(Handler handler){
         super(handler);
 
-        room = new Room(handler, "res/worlds/room1.txt");
+        room = new Room(handler, "res/rooms/room1.txt");
         handler.setRoom(room);
 
     }

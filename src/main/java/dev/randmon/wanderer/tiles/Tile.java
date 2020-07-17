@@ -14,10 +14,10 @@ public class Tile {
 
     //CLASS
 
-    public static final int TILE_WIDTH = 64, TILE_HEIGHT = 64;
+    public static final int TILE_WIDTH = 128, TILE_HEIGHT = 128;
 
     protected BufferedImage texture;
-    protected BufferedImage[] autoTexture = new BufferedImage[4];
+    protected BufferedImage[] connectedTextures = new BufferedImage[8];
     protected final int id;
 
     /** constructor
@@ -40,8 +40,8 @@ public class Tile {
     }
 
     public void render(Graphics g, int x, int y, int type) {
-        setTexture(autoTexture[type]);
-        g.drawImage(texture, x, y, TILE_WIDTH, TILE_HEIGHT, null);
+        setTexture(connectedTextures[type]);
+        render(g, x, y);
     }
 
     /** isSolid method decides if you can walk on a tile or not
@@ -52,7 +52,7 @@ public class Tile {
 
     /** autoTexture method decides if the texture changes according to adjacent tiles
      * default false (always same texture) */
-    public boolean autoTexture() {
+    public boolean hasConnectedTexture() {
         return false;
     }
 

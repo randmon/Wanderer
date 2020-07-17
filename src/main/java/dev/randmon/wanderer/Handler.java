@@ -3,7 +3,7 @@ package dev.randmon.wanderer;
 import dev.randmon.wanderer.gfx.GameCamera;
 import dev.randmon.wanderer.input.KeyManager;
 import dev.randmon.wanderer.input.MouseManager;
-import dev.randmon.wanderer.worlds.Room;
+import dev.randmon.wanderer.rooms.Room;
 
 /** Provides important variables to everywhere! */
 public class Handler {

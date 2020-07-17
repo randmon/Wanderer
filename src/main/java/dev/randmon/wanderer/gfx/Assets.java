@@ -8,7 +8,8 @@ public class Assets {
 
     //buffered image objects
     public static BufferedImage player, dirt, grass, tree,
-            brickLeft, brickRight, brickMid, brickSingle;
+            brickLeft, brickRight, brickMid, brickSingle,
+            brickLeftShadow, brickRightShadow, brickMidShadow, brickSingleShadow;
 
     public static BufferedImage[] player_down, player_up, player_right, player_left;
     public static BufferedImage[] btn_start;
@@ -40,11 +41,15 @@ public class Assets {
         dirt = sheet.crop(WIDTH, 0, WIDTH, HEIGHT);
         grass = sheet.crop(WIDTH*2, 0, WIDTH, HEIGHT);
 
-        tree = sheet.crop(WIDTH*7, 0, WIDTH, HEIGHT + HEIGHT /2);
+        tree = sheet.crop(0, HEIGHT, WIDTH*2, HEIGHT*2);
 
         brickLeft = sheet.crop(WIDTH*3, 0, WIDTH, HEIGHT);
         brickMid = sheet.crop(WIDTH*4, 0, WIDTH, HEIGHT);
         brickRight = sheet.crop(WIDTH*5, 0, WIDTH, HEIGHT);
         brickSingle = sheet.crop(WIDTH*6, 0, WIDTH, HEIGHT);
+        brickLeftShadow = sheet.crop(WIDTH*3, HEIGHT, WIDTH, HEIGHT);
+        brickMidShadow = sheet.crop(WIDTH*4, HEIGHT, WIDTH, HEIGHT);
+        brickRightShadow = sheet.crop(WIDTH*5, HEIGHT, WIDTH, HEIGHT);
+        brickSingleShadow = sheet.crop(WIDTH*6, HEIGHT, WIDTH, HEIGHT);
     }
 }

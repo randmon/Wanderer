@@ -6,10 +6,14 @@ public class BrickTile extends Tile {
 
     public BrickTile(int id) {
         super(Assets.brickSingle, id);
-        autoTexture[0] = Assets.brickLeft;
-        autoTexture[1] = Assets.brickMid;
-        autoTexture[2] = Assets.brickRight;
-        autoTexture[3] = Assets.brickSingle;
+        connectedTextures[0] = Assets.brickLeft;
+        connectedTextures[1] = Assets.brickMid;
+        connectedTextures[2] = Assets.brickRight;
+        connectedTextures[3] = Assets.brickSingle;
+        connectedTextures[4] = Assets.brickLeftShadow;
+        connectedTextures[5] = Assets.brickMidShadow;
+        connectedTextures[6] = Assets.brickRightShadow;
+        connectedTextures[7] = Assets.brickSingleShadow;
     }
 
     @Override
@@ -18,7 +22,7 @@ public class BrickTile extends Tile {
     }
 
     @Override
-    public boolean autoTexture() {
+    public boolean hasConnectedTexture() {
         return true;
     }
 }

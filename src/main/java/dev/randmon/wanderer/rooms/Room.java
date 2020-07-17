@@ -1,4 +1,4 @@
-package dev.randmon.wanderer.worlds;
+package dev.randmon.wanderer.rooms;
 
 import dev.randmon.wanderer.Handler;
 import dev.randmon.wanderer.entities.EntityManager;
@@ -25,9 +25,9 @@ public class Room {
     public Room(Handler handler, String path) {
         this.handler = handler;
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
-        entityManager.addEntity(new Tree(handler, 100, 250));
-        entityManager.addEntity(new Tree(handler, 100, 450));
-        entityManager.addEntity(new Tree(handler, 100, 650));
+        entityManager.addEntity(new Tree(handler, Tile.TILE_WIDTH*2, Tile.TILE_HEIGHT*4));
+        entityManager.addEntity(new Tree(handler, Tile.TILE_WIDTH*2, Tile.TILE_HEIGHT*7));
+        entityManager.addEntity(new Tree(handler, Tile.TILE_WIDTH*2, Tile.TILE_HEIGHT*10));
 
         loadWorld(path);
 
@@ -55,41 +55,63 @@ public class Room {
             for(int x = xStart; x< xEnd; x++){
                 Tile tileToRender = getTile(x, y); //Current tile
 
-                // Define auto-texture
-                if (tileToRender.autoTexture()){
+                // Define connected texture
+                if (tileToRender.hasConnectedTexture()){
+
+                    int type =0;
+
+                    //Check the tile below
+                    boolean hasNoShadow = y+1 <= handler.getHeight() && getTile(x, y+1).getId() == tileToRender.getId();
+
 
                     //Check tile to the left
                     if (x-1 >= 0 && getTile(x-1, y).getId() == tileToRender.getId()) {
-                       //The tile to the left is the same
+
                        //Check tile to the right
                        if (x+1 <= handler.getWidth() && getTile(x+1, y).getId() == tileToRender.getId()) {
-                            //All 3 tiles are the same
-                           tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
-                                   (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()),
-                                   1);
+                           if (hasNoShadow) {
+                               //Mid tile
+                               type = 1;
+                           } else {
+                               //Shadow mid tile
+                               type = 5;
+                           }
                        } else {
-                           //Tile to the right is not the same
-                           tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
-                                   (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()),
-                                   2);
+                           if (hasNoShadow) {
+                               //Right tile
+                               type = 2;
+                           }
+                           else {
+                               //Shadow right tile
+                               type = 6;
+                           }
                        }
                     } else {
-                        //Tile to the left is not the same
                         //Check tile to the right
                         if (x+1 <= handler.getWidth() && getTile(x+1, y).getId() == tileToRender.getId()) {
-                            //Tile to the right is the same
-                            tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
-                                    (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()),
-                                    0);
+                            if (hasNoShadow) {
+                                // Left tile
+                                type = 0;
+                            } else {
+                                //Shadow left tile
+                                type = 4;
+                            }
                         } else {
                             //All 3 tiles are different
-                            tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
-                                    (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()),
-                                    3);
+                            if (hasNoShadow) {
+                                type = 3;
+                            } else {
+                                type = 7;
+                            }
                         }
                     }
 
-                //No auto texture
+                    //Render connected texture
+                    tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
+                            (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()),
+                            type);
+
+                //No connected texture
                 } else {
                     tileToRender.render(g, (int) (x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
                             (int) (y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()));
