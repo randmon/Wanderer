@@ -1,6 +1,5 @@
 package dev.randmon.wanderer.entities;
 
-import dev.randmon.wanderer.Game;
 import dev.randmon.wanderer.Handler;
 
 import java.awt.*;
@@ -28,7 +27,7 @@ public abstract class Entity {
     public abstract void render(Graphics g);
 
     public boolean checkEntityCollisions(float xOffset, float yOffset) {
-        for (Entity e: handler.getWorld().getEntityManager().getEntities()) {
+        for (Entity e: handler.getRoom().getEntityManager().getEntities()) {
             if(e.equals(this)){
                 continue;
             }

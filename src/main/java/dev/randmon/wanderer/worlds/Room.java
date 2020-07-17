@@ -7,9 +7,9 @@ import dev.randmon.wanderer.entities.statics.Tree;
 import dev.randmon.wanderer.tiles.Tile;
 import dev.randmon.wanderer.utils.Utils;
 
-import java.awt.Graphics;
+import java.awt.*;
 
-public class World {
+public class Room {
 
     private Handler handler;
     private int width, height; //number of tiles
@@ -22,7 +22,7 @@ public class World {
     /** constructor
      * @param path location of world file to load
      * */
-    public World(Handler handler, String path) {
+    public Room(Handler handler, String path) {
         this.handler = handler;
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
         entityManager.addEntity(new Tree(handler, 100, 250));
@@ -40,6 +40,9 @@ public class World {
     }
 
     public void render(Graphics g) {
+        g.setColor(Color.black);
+        g.fillRect(0,0,handler.getWidth(), handler.getHeight());
+
         //Tiles user can currently see
         int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILE_WIDTH);
         int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) /Tile.TILE_WIDTH + 1);

@@ -1,31 +1,30 @@
 package dev.randmon.wanderer.states;
 
 import dev.randmon.wanderer.Handler;
-import dev.randmon.wanderer.entities.creatures.Player;
-import dev.randmon.wanderer.worlds.World;
+import dev.randmon.wanderer.worlds.Room;
 
 import java.awt.*;
 
 public class GameState extends State{
 
-    private World world;
+    private Room room;
 
     //constructor
     public GameState(Handler handler){
         super(handler);
 
-        world = new World(handler, "res/worlds/world1.txt");
-        handler.setWorld(world);
+        room = new Room(handler, "res/worlds/room1.txt");
+        handler.setRoom(room);
 
     }
 
     @Override
     public void tick() {
-        world.tick();
+        room.tick();
     }
 
     @Override
     public void render(Graphics g) {
-        world.render(g);
+        room.render(g);
     }
 }

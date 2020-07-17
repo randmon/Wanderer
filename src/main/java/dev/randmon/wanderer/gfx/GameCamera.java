@@ -1,6 +1,5 @@
 package dev.randmon.wanderer.gfx;
 
-import dev.randmon.wanderer.Game;
 import dev.randmon.wanderer.Handler;
 import dev.randmon.wanderer.entities.Entity;
 import dev.randmon.wanderer.tiles.Tile;
@@ -18,24 +17,24 @@ public class GameCamera {
 
     /** Check if camera is showing blank space*/
     public void checkBlankSpace() {
-        if (handler.getWidth() < handler.getWorld().getWidth() * Tile.TILE_WIDTH) {
+        if (handler.getWidth() < handler.getRoom().getWidth() * Tile.TILE_WIDTH) {
             if (xOffset < 0) {
                 xOffset = 0;
-            } else if (xOffset > handler.getWorld().getWidth() * Tile.TILE_WIDTH - handler.getWidth()) {
-                xOffset = handler.getWorld().getWidth() * Tile.TILE_WIDTH - handler.getWidth();
+            } else if (xOffset > handler.getRoom().getWidth() * Tile.TILE_WIDTH - handler.getWidth()) {
+                xOffset = handler.getRoom().getWidth() * Tile.TILE_WIDTH - handler.getWidth();
             }
         } else {
-            xOffset = handler.getWorld().getWidth() * Tile.TILE_WIDTH / 2 - handler.getWidth() / 2;
+            xOffset = handler.getRoom().getWidth() * Tile.TILE_WIDTH / 2 - handler.getWidth() / 2;
         }
 
-        if (handler.getHeight() < handler.getWorld().getHeight() * Tile.TILE_HEIGHT) {
+        if (handler.getHeight() < handler.getRoom().getHeight() * Tile.TILE_HEIGHT) {
             if (yOffset < 0) {
                 yOffset = 0;
-            } else if (yOffset > handler.getWorld().getHeight() * Tile.TILE_HEIGHT - handler.getHeight()) {
-                yOffset = handler.getWorld().getHeight() * Tile.TILE_HEIGHT - handler.getHeight();
+            } else if (yOffset > handler.getRoom().getHeight() * Tile.TILE_HEIGHT - handler.getHeight()) {
+                yOffset = handler.getRoom().getHeight() * Tile.TILE_HEIGHT - handler.getHeight();
             }
         } else {
-            yOffset = handler.getWorld().getHeight() * Tile.TILE_HEIGHT / 2 - handler.getHeight() / 2;
+            yOffset = handler.getRoom().getHeight() * Tile.TILE_HEIGHT / 2 - handler.getHeight() / 2;
         }
     }
 

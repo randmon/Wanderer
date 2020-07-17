@@ -3,13 +3,13 @@ package dev.randmon.wanderer;
 import dev.randmon.wanderer.gfx.GameCamera;
 import dev.randmon.wanderer.input.KeyManager;
 import dev.randmon.wanderer.input.MouseManager;
-import dev.randmon.wanderer.worlds.World;
+import dev.randmon.wanderer.worlds.Room;
 
 /** Provides important variables to everywhere! */
 public class Handler {
 
     private Game game;
-    private World world;
+    private Room room;
 
     /** constructor */
     public Handler(Game game) {
@@ -43,11 +43,11 @@ public class Handler {
         this.game = game;
     }
 
-    public World getWorld() {
-        return world;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setWorld(World world) {
-        this.world = world;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }
