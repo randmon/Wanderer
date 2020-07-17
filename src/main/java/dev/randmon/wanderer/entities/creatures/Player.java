@@ -1,6 +1,5 @@
 package dev.randmon.wanderer.entities.creatures;
 
-import dev.randmon.wanderer.Game;
 import dev.randmon.wanderer.Handler;
 import dev.randmon.wanderer.Launcher;
 import dev.randmon.wanderer.gfx.Animation;
